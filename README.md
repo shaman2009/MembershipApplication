@@ -1,4 +1,4 @@
-Spring-MVC-Template
+MembershipApplication
 ===================
 
-Spring MVC Template
+
