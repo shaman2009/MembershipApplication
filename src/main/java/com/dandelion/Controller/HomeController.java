@@ -1,4 +1,4 @@
-package com.dandelion.springTemplate.Controller;
+package com.dandelion.Controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -35,5 +35,6 @@ public class HomeController {
 		
 		return "home";
 	}
+	
 	
 }
