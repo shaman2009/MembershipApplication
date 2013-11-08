@@ -1,4 +1,4 @@
-package com.dandelion.Controller;
+package com.dandelion.membership.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

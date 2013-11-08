@@ -94,7 +94,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">信用卡信息</label>
 					<div class="controls">
-						<input placeholder="" class="input-xlarge" type="text">
+						<input placeholder="" class="input-xlarge" type="text" name="creditCardNumber">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -106,7 +106,7 @@ body {
 					<!-- Select Basic -->
 					<label class="control-label">申請會員類型</label>
 					<div class="controls">
-						<select class="input-xlarge">
+						<select class="input-xlarge" name="memberType">
 							<option>A等會員</option>
 							<option>B等會員</option>
 							<option>C等會員</option>
@@ -120,9 +120,14 @@ body {
 					<div class="controls">
 						<button class="btn btn-success">提交</button>
 					</div>
+					
 				</div>
+		
 			</fieldset>
+					
 		</form>
+		<div id="alertSuccess" class="alert alert-success" style="display: none;">提交成功  :)</div>
+		<div class="alert alert-danger" style="display: none;">の(⊙o⊙)…  出錯了</div>
 	</div>
 	<!-- /.container -->
 
@@ -147,10 +152,10 @@ body {
 		$(document).ready(function() {
 
 			var options = {
-				url : "Dandelion", // target element(s) to be updated with server response 
+				url : "Submit", // target element(s) to be updated with server response 
 				beforeSubmit : showRequest, // pre-submit callback 
 				success : showResponse,
-				type : 'post'	
+				type : 'post',
 			// post-submit callback 
 			// other available options: 
 			//url:       url         // override for form's 'action' attribute 
@@ -160,7 +165,7 @@ body {
 			//resetForm: true        // reset the form after successful submit 
 
 			// $.ajax options can be used here too, for example: 
-			//timeout:   3000 
+			 timeout:   3000 
 			};
 
 			// bind form using 'ajaxForm' 
@@ -181,7 +186,7 @@ body {
 		    // here we could return false to prevent the form from being submitted; 
 		    // returning anything other than false will allow the form submit to continue 
 		    return true; 
-		} 
+		};
 		 
 		// post-submit callback 
 		function showResponse(responseText, statusText, xhr, $form)  { 
@@ -198,8 +203,9 @@ body {
 		 
 		    //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
 		     //   '\n\nThe output div should have already been updated with the responseText.'); 
-		    alert("申請成功");
-		} 
+		    //alert("申請成功");
+		    $("#alertSuccess").css('display','block'); 
+		};
 	</script>
 </body>
 </html>
