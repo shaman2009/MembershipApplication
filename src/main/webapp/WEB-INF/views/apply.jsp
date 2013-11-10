@@ -8,16 +8,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="shortcut icon" href="<c:url value="/resources/img/favicon.jpg"/>">
 
 <title>Membership application</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/resources/css/bootstrap.css" />"
-	rel="stylesheet">
-<link
-	href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />" rel="stylesheet">
 <!-- Add custom CSS here -->
 <style>
 body {
