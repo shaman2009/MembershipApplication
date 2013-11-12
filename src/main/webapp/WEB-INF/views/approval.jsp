@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -65,39 +67,69 @@
 				<h1>審批會員</h1>
 			</legend>
 		</div>
-		<div class="table-responsive">
-			<c:if test="${not empty Applicants}">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>申請人姓名</th>
-							<th>申請日期</th>
-							<th>推薦人姓名</th>
-							<th>信用卡信息</th>
-							<th>申請會員類型</th>
-							<th>審批狀態</th>
-
-
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="applicant" items="${Applicants}" varStatus="index">
+		<form:form id="applyForm" class="form-horizontal" modelAttribute="applicantForm" >
+			<div class="table-responsive">
+				<c:if test="${not empty applicantForm.applicants}">
+					<table class="table">
+						<thead>
 							<tr>
-								<td>${index.count} </td>
-								<td>${applicant.applicantname}</td>
-								<td>${applicant.applydate}</td>
-								<td>${applicant.referrername}</td>
-								<td>${applicant.creditcardnumber}</td>
-								<td>${applicant.membertype}</td>
-								<td>accept</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</c:if>
-		</div>
+								<th>#</th>
+								<th>申請人姓名</th>
+								<th>申請日期</th>
+								<th>推薦人姓名</th>
+								<th>信用卡信息</th>
+								<th>申請會員類型</th>
+								<th>審批狀態</th>
 
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="applicant" items="${applicantForm.applicants}" varStatus="index">
+								<tr>
+									<td>${index.count}</td>
+									<td>${applicant.applicantname}</td>
+									<td><fmt:formatDate value="${applicant.applydate}"
+											pattern="yyyy-MM-dd" /></td>
+									<td>${applicant.referrername}</td>
+									<td>${applicant.creditcardnumber}</td>
+									<td>${applicant.membertype}</td>
+									<td><select class="input-xlarge"
+										name="applicants[${index.index}].status">
+											<option
+												<c:if test="${applicant.status=='accept'}">selected</c:if>
+												value="accept">accept</option>
+											<option
+												<c:if test="${applicant.status=='deny'}">selected</c:if>
+												value="deny">deny</option>
+											<option
+												<c:if test="${applicant.status=='additionalInfo'}">selected</c:if>
+												value="additionalInfo">request additional info</option>
+											<option
+												<c:if test="${applicant.status=='defer'}">selected</c:if>
+												value="defer">defer</option>
+											<option
+												<c:if test="${applicant.status=='todo'}">selected</c:if>
+												value="todo">todo</option>
+									</select></td>
+									<td style="display:none;" ><input name="applicants[${index.index}].id" value="${applicant.id}"/></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:if>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"></label>
+				<!-- Button -->
+				<div class="controls">
+					<button class="btn btn-success">提交</button>
+				</div>
+			</div>
+		</form:form>
+		<div id="alertSuccess" class="alert alert-success" style="display: none;">提交成功  :)</div>
+		<div class="alert alert-danger" style="display: none;">の(⊙o⊙)…  出錯了</div>
 	</div>
 	<!-- /container -->
 
@@ -114,7 +146,7 @@
 		$(document).ready(function() {
 
 			var options = {
-				url : "Account/Login", // target element(s) to be updated with server response 
+				url : "Save", // target element(s) to be updated with server response 
 				beforeSubmit : showRequest, // pre-submit callback 
 				success : showResponse,
 				type : 'post',
@@ -132,7 +164,7 @@
 			};
 
 			// bind form using 'ajaxForm' 
-			$("#loginForm").ajaxForm(options);
+			$("#applyForm").ajaxForm(options);
 		});
 		// pre-submit callback 
 		function showRequest(formData, jqForm, options) { 
@@ -151,10 +183,10 @@
 		    return true; 
 		};
 		function errorResponse(responseText, statusText, xhr, $form)  { 
-			alert("Email or Passowrd Error");
+			//alert("Email or Passowrd Error");
 			 
-		    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
-		        '\n\nThe output div should have already been updated with the responseText.'); 
+		    //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+		      //  '\n\nThe output div should have already been updated with the responseText.'); 
 		};
 		 
 		// post-submit callback 
@@ -170,11 +202,10 @@
 		    // property set to 'json' then the first argument to the success callback 
 		    // is the json data object returned by the server 
 		 
-		    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
-		        '\n\nThe output div should have already been updated with the responseText.'); 
-		    alert("Login Success");
-		    //$("#alertSuccess").css('display','block'); 
-		    location.href="Applicant/Apply";
+		   // alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+		    //    '\n\nThe output div should have already been updated with the responseText.'); 
+		    $("#alertSuccess").css('display','block'); 
+		    //location.href="Applicant/Apply";
 		};
 	</script>
   </body>
