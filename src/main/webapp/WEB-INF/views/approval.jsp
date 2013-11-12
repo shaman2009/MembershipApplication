@@ -76,9 +76,10 @@
 								<th>#</th>
 								<th>申請人姓名</th>
 								<th>申請日期</th>
-								<th>推薦人姓名</th>
 								<th>信用卡信息</th>
 								<th>申請會員類型</th>
+								<th>推薦人姓名</th>
+								<th>推薦人滿足</th>
 								<th>審批狀態</th>
 
 
@@ -91,9 +92,10 @@
 									<td>${applicant.applicantname}</td>
 									<td><fmt:formatDate value="${applicant.applydate}"
 											pattern="yyyy-MM-dd" /></td>
-									<td>${applicant.referrername}</td>
 									<td>${applicant.creditcardnumber}</td>
 									<td>${applicant.membertype}</td>
+									<td>${applicant.referrername}</td>
+									<td>${applicant.isreferrertrue}</td>
 									<td><select class="input-xlarge"
 										name="applicants[${index.index}].status">
 											<option
@@ -124,7 +126,9 @@
 				<label class="control-label"></label>
 				<!-- Button -->
 				<div class="controls">
-					<button class="btn btn-success">提交</button>
+					<button class="btn btn-success btn-lg active">提交</button>
+					<a href="<c:url value="/Member/Select" />" class="btn btn-primary btn-lg active" role="button">查看會員</a>
+					<a href="<c:url value="/Applicant/Apply" />" class="btn btn-info btn-lg active" role="button">申請會員</a>
 				</div>
 			</div>
 		</form:form>
@@ -165,6 +169,11 @@
 
 			// bind form using 'ajaxForm' 
 			$("#applyForm").ajaxForm(options);
+			$("#member").click(function(){
+				$.post($(this).attr("action"), $(this).serialize(), function(html) {
+					location.href="../Member/Select";
+				});
+			});
 		});
 		// pre-submit callback 
 		function showRequest(formData, jqForm, options) { 

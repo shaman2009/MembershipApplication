@@ -11,10 +11,18 @@ public interface MembershipMapper {
 
 	public int insertApplicant(Applicant applicant);
 	
-	@Select(value="Select * from tb_applicant")
+	public int updateApplicant(Applicant applicant);
+	
+	@Select(value="Select * from tb_applicant t where t.ismember = 0")
 	@ResultMap("BaseApplicantResultMap")
 	public List<Applicant> selectApplicant();
 	
+	@Select(value="Select * from tb_applicant t where t.ismember = 1")
+	@ResultMap("BaseApplicantResultMap")
+	public List<Applicant> selectMembers();
 	
+	@Select(value="SELECT * FROM tb_applicant t where t.applicantName = #{name} and t.ismember = 1 limit 1;")
+	@ResultMap("BaseApplicantResultMap")
+	public List<Applicant> selectMemberByName(String name);
 	
 }

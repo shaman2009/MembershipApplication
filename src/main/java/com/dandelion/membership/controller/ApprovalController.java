@@ -34,6 +34,8 @@ public class ApprovalController {
 		applicantForm.setApplicants(applicants);
 	    return new ModelAndView("approval", "applicantForm", applicantForm);
 	}
+	
+	
 	@RequestMapping(value = "Save")
 	public ModelAndView Approval(@ModelAttribute("applicantForm") ApplicantForm applicantForm) {
 		if(applicantForm == null) {
@@ -41,14 +43,9 @@ public class ApprovalController {
 			return new ModelAndView("approval");
 		}
 		List<Applicant> applicants = applicantForm.getApplicants();
-		if(applicants == null) {
-			logger.info("applicants == null");
-		}
 		ApprovalController.applicants = applicants;
 		if(null != applicants && applicants.size() > 0) {
-			for (Applicant applicant : applicants) {
-				logger.info(applicant.getId().toString());
-			}
+			approvalService.approval(applicants);
 		}
 		
 	    return new ModelAndView("approval");
