@@ -21,8 +21,12 @@ public interface MembershipMapper {
 	@ResultMap("BaseApplicantResultMap")
 	public List<Applicant> selectMembers();
 	
-	@Select(value="SELECT * FROM tb_applicant t where t.applicantName = #{name} and t.ismember = 1 limit 1;")
+	@Select(value="SELECT * FROM tb_applicant t where t.applicantName = #{name} and t.ismember = 1 ;")
 	@ResultMap("BaseApplicantResultMap")
 	public List<Applicant> selectMemberByName(String name);
+	
+	@Select(value="SELECT * FROM tb_applicant t where t.applicantName = #{0} and t.referrername = #{1}")
+	@ResultMap("BaseApplicantResultMap")
+	public List<Applicant> selectMemberByNameandReferrername(String name, String referrername);
 	
 }

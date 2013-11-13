@@ -66,7 +66,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01" >申請人姓名</label>
 					<div class="controls">
-						<input placeholder="" class="input-xlarge" type="text" name="applicantName">
+						<input id="name_input" placeholder="" class="input-xlarge" type="text" name="applicantName">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -74,7 +74,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">申請日期</label>
 					<div class="controls">
-						<input class="input-xlarge" type="text" id="datetimepicker" name="applyDate"
+						<input  class="input-xlarge" type="text" id="datetimepicker" name="applyDate"
 							data-date-format="yyyy-mm-dd">
 						<p class="help-block"></p>
 					</div>
@@ -83,7 +83,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">推薦人姓名</label>
 					<div class="controls">
-						<input placeholder="" class="input-xlarge" type="text" name="referrerName">
+						<input id="refername_input" placeholder="" class="input-xlarge" type="text" name="referrerName">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -91,7 +91,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">信用卡信息</label>
 					<div class="controls">
-						<input placeholder="" class="input-xlarge" type="text" name="creditCardNumber">
+						<input id="credit_input" placeholder="" class="input-xlarge" type="text" name="creditCardNumber">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -124,7 +124,7 @@ body {
 					
 		</form>
 		<div id="alertSuccess" class="alert alert-success" style="display: none;">提交成功  :)</div>
-		<div class="alert alert-danger" style="display: none;">の(⊙o⊙)…  出錯了</div>
+		<div id="alertError" class="alert alert-danger" style="display: none;">の(⊙o⊙)…  出錯了,請正確填寫</div>
 	</div>
 	<!-- /.container -->
 
@@ -170,18 +170,40 @@ body {
 		});
 		// pre-submit callback 
 		function showRequest(formData, jqForm, options) { 
-		    // formData is an array; here we use $.param to convert it to a string to display it 
-		    // but the form plugin does this for you automatically when it submits the data 
+			if(!$("#name_input").val()) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【申請人姓名】"); 
+				return false;
+			}
+			if(!isNaN($('#name_input').val())) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【申請人信息】"); 
+				return false;
+			}
+			if(!$("#datetimepicker").val()) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確選擇【申請日期】"); 
+				return false;
+			}
+			if(!$("#refername_input").val()) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【推薦人姓名】"); 
+				return false;
+			}
+			if(!isNaN($('#refername_input').val())) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【推薦人信息】"); 
+				return false;
+			}
+			
+			if(!$("#credit_input").val()) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【信用卡信息】"); 
+				return false;
+			}
+			if(isNaN($('#credit_input').val())) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【信用卡信息】"); 
+				return false;
+			}
+
+
 		    var queryString = $.param(formData); 
-		 
-		    // jqForm is a jQuery object encapsulating the form element.  To access the 
-		    // DOM element for the form do this: 
-		    // var formElement = jqForm[0]; 
-		 
 		    //alert('About to submit: \n\n' + queryString); 
-		 
-		    // here we could return false to prevent the form from being submitted; 
-		    // returning anything other than false will allow the form submit to continue 
+		 	
 		    return true; 
 		};
 		 
@@ -202,6 +224,7 @@ body {
 		     //   '\n\nThe output div should have already been updated with the responseText.'); 
 		    //alert("申請成功");
 		    $("#alertSuccess").css('display','block'); 
+		    $("#alertError").css('display','none'); 
 		};
 	</script>
 </body>

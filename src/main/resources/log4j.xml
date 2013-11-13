@@ -10,6 +10,32 @@
 		</layout>
 	</appender>
 	
+	
+	<!-- Ibatis -->
+	
+	<logger name="log4j.logger.com.ibatis">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="log4j.logger.com.ibatis.common.jdbc.SimpleDataSource">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="log4j.logger.com.ibatis.common.jdbc.ScriptRunner">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="log4j.logger.java.sql.Connection">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="log4j.logger.java.sql.Statement">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="log4j.logger.java.sql.PreparedStatement">
+		<level value="DEBUG" />
+	</logger>
+	
+	
 	<!-- Application Loggers -->
 	<logger name="com.dandelion.membership">
 		<level value="info" />
