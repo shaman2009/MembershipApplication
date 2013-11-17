@@ -15,15 +15,17 @@ public class ApplicantService {
 	@Autowired
 	private MembershipMapper membershipMapper;
 	
-	public void ApplicantSubmit(Applicant applicant){
+	public boolean ApplicantSubmit(Applicant applicant){
 		List<Applicant> list = membershipMapper.selectMemberByNameandReferrername(applicant.getApplicantname(), applicant.getReferrername());
+		System.out.println(list.size());
 		if(list.size() != 0) {
-			return;
+			System.out.println("in");
+			return false;
 		}
 		Date date = new Date();
 		applicant.setModifieddate(date);
 		applicant.setCreateddate(date);
 		membershipMapper.insertApplicant(applicant);
-		
+		return true;
 	}
 }

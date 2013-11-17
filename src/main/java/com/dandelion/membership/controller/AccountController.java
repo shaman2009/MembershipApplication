@@ -24,6 +24,9 @@ private static final Logger logger = LoggerFactory.getLogger(AccountController.c
 		logger.info("Welcome home! The client locale is {}.", locale);
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		
+		
+		
 		if("admin".equals(email)&&"admin".equals(password)){
 			return "home";
 		}

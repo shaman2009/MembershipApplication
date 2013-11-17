@@ -29,4 +29,8 @@ public interface MembershipMapper {
 	@ResultMap("BaseApplicantResultMap")
 	public List<Applicant> selectMemberByNameandReferrername(String name, String referrername);
 	
+	@Select(value="SELECT * FROM tb_applicant t where t.applicantEmail = #{0}")
+	@ResultMap("BaseApplicantResultMap")
+	public List<Applicant> selectMemberByEmail(String email);
+	
 }

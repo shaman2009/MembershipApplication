@@ -46,6 +46,7 @@ public class ApplicantController {
 	public String ApplicantSubmit(Locale locale, Model model, WebRequest request) throws ParseException {
 		logger.info("submit", "submit");
 		String applicantName = request.getParameter("applicantName");
+		String applicantEmail = request.getParameter("applicantEmail");
 		String applyDate = request.getParameter("applyDate");
 		String referrerName = request.getParameter("referrerName");
 		String creditCardNumber = request.getParameter("creditCardNumber");
@@ -57,13 +58,16 @@ public class ApplicantController {
 		
 		Applicant applicant = new Applicant();
 		applicant.setApplicantname(applicantName);
+		applicant.setApplicantemail(applicantEmail);
 		applicant.setApplydate(date);
 		applicant.setReferrername(referrerName);
 		applicant.setCreditcardnumber(creditCardNumber);
 		applicant.setMembertype(memberType);
 		
-		applicantService.ApplicantSubmit(applicant);
-		
+		boolean result = applicantService.ApplicantSubmit(applicant);
+		if(!result) {
+			return "error";
+		}
 		
 		return "home";
 	}

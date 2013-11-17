@@ -8,13 +8,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="<c:url value="/resources/img/favicon.jpg"/>">
+<link rel="shortcut icon"
+	href="<c:url value="/resources/img/favicon.jpg"/>">
 
 <title>Membership application</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap.css" />"
+	rel="stylesheet">
+ <link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
+<link
+	href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />"
+	rel="stylesheet">
 <!-- Add custom CSS here -->
 <style>
 body {
@@ -26,34 +31,11 @@ body {
 
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand">Membership</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="#about">About</a></li>
-					<li><a href="#services">Services</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+	<%@ include file="navigation.jsp"%>
 
 	<div class="container">
 
-		<form id="applyForm"   class="form-horizontal">
+		<form id="applyForm" class="form-horizontal">
 			<fieldset>
 				<div id="legend" class="">
 					<legend class="">
@@ -64,9 +46,20 @@ body {
 				<div class="control-group">
 
 					<!-- Text input-->
-					<label class="control-label" for="input01" >申請人姓名</label>
+					<label class="control-label" for="input01">申請人姓名</label>
 					<div class="controls">
-						<input id="name_input" placeholder="" class="input-xlarge" type="text" name="applicantName">
+						<input id="name_input" placeholder="" class="input-xlarge"
+							type="text" name="applicantName">
+						<p class="help-block"></p>
+					</div>
+				</div>
+				<div class="control-group">
+
+					<!-- Text input-->
+					<label class="control-label" for="input01">申請人電郵</label>
+					<div class="controls">
+						<input id="email_input" placeholder="" class="input-xlarge"
+							type="text" name="applicantEmail">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -74,8 +67,8 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">申請日期</label>
 					<div class="controls">
-						<input  class="input-xlarge" type="text" id="datetimepicker" name="applyDate"
-							data-date-format="yyyy-mm-dd">
+						<input class="input-xlarge" type="text" id="datetimepicker"
+							name="applyDate" data-date-format="yyyy-mm-dd">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -83,7 +76,8 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">推薦人姓名</label>
 					<div class="controls">
-						<input id="refername_input" placeholder="" class="input-xlarge" type="text" name="referrerName">
+						<input id="refername_input" placeholder="" class="input-xlarge"
+							type="text" name="referrerName">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -91,7 +85,8 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">信用卡信息</label>
 					<div class="controls">
-						<input id="credit_input" placeholder="" class="input-xlarge" type="text" name="creditCardNumber">
+						<input id="credit_input" placeholder="" class="input-xlarge"
+							type="text" name="creditCardNumber">
 						<p class="help-block"></p>
 					</div>
 				</div>
@@ -117,14 +112,16 @@ body {
 					<div class="controls">
 						<button class="btn btn-success">提交</button>
 					</div>
-					
+
 				</div>
-		
+
 			</fieldset>
-					
+
 		</form>
-		<div id="alertSuccess" class="alert alert-success" style="display: none;">提交成功  :)</div>
-		<div id="alertError" class="alert alert-danger" style="display: none;">の(⊙o⊙)…  出錯了,請正確填寫</div>
+		<div id="alertSuccess" class="alert alert-success"
+			style="display: none;">提交成功 :)</div>
+		<div id="alertError" class="alert alert-danger" style="display: none;">の(⊙o⊙)…
+			出錯了,請正確填寫</div>
 	</div>
 	<!-- /.container -->
 
@@ -133,7 +130,8 @@ body {
 	<!-- Make sure to add jQuery - download the most recent version at http://jquery.com/ -->
 	<script src="<c:url value="/resources/js/jquery.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap.js" />"></script>
-	<script src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js" />"></script>
+	<script
+		src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js" />"></script>
 	<script src="<c:url value="/resources/js/jquery.form.js" />"></script>
 	<script type="text/javascript">
 		$('#datetimepicker').datetimepicker({
@@ -152,6 +150,7 @@ body {
 				url : "Submit", // target element(s) to be updated with server response 
 				beforeSubmit : showRequest, // pre-submit callback 
 				success : showResponse,
+				error: errorResponse,
 				type : 'post',
 			// post-submit callback 
 			// other available options: 
@@ -176,6 +175,16 @@ body {
 			}
 			if(!isNaN($('#name_input').val())) {
 				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【申請人信息】"); 
+				return false;
+			}
+			if(!$("#email_input").val()) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【申請人Email】"); 
+				return false;
+			}
+			
+			var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			if(!myreg.test($('#email_input').val())) {
+				$("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請正確填寫【申請人Email】"); 
 				return false;
 			}
 			if(!$("#datetimepicker").val()) {
@@ -207,6 +216,10 @@ body {
 		    return true; 
 		};
 		 
+		function errorResponse(responseText, statusText, xhr, $form) {
+		    $("#alertSuccess").css('display','none'); 
+		    $("#alertError").css('display','block').text("の(⊙o⊙)…  出錯了,請不要重複申請~~ > < ！！！"); ; 
+		}
 		// post-submit callback 
 		function showResponse(responseText, statusText, xhr, $form)  { 
 		    // for normal html responses, the first argument to the success callback 

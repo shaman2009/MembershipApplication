@@ -37,30 +37,7 @@
   </head>
 
   <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand">Membership</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="#about">About</a></li>
-					<li><a href="#services">Services</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+ 	 <%@ include file="navigation.jsp" %>
 	<div class="container">
 		<div id="legend" class="">
 			<legend class="">
@@ -126,9 +103,7 @@
 				<label class="control-label"></label>
 				<!-- Button -->
 				<div class="controls">
-					<button class="btn btn-success btn-lg active">提交</button>
-					<a href="<c:url value="/Member/Select" />" class="btn btn-primary btn-lg active" role="button">查看會員</a>
-					<a href="<c:url value="/Applicant/Apply" />" class="btn btn-info btn-lg active" role="button">申請會員</a>
+					<button class="btn btn-success active">提交</button>
 				</div>
 			</div>
 		</form:form>
@@ -142,7 +117,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    	<script src="<c:url value="/resources/js/jquery.js" />"></script>
+   	<script src="<c:url value="/resources/js/jquery.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js" />"></script>
 	<script src="<c:url value="/resources/js/jquery.form.js" />"></script>
