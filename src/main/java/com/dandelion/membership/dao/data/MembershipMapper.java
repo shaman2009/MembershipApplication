@@ -1,11 +1,14 @@
 package com.dandelion.membership.dao.data;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
 import com.dandelion.membership.dao.model.Applicant;
+import com.dandelion.membership.dao.model.CalendarEvent;
+import com.dandelion.membership.dao.model.Reservation;
 
 public interface MembershipMapper {
 
@@ -32,5 +35,24 @@ public interface MembershipMapper {
 	@Select(value="SELECT * FROM tb_applicant t where t.applicantEmail = #{0}")
 	@ResultMap("BaseApplicantResultMap")
 	public List<Applicant> selectMemberByEmail(String email);
+	
+	@Select(value="select * from tb_event t where t.start >= #{0} and t.end <= #{1}")
+	@ResultMap("BaseCalendarEventResultMap")
+	public List<CalendarEvent> selectCalendarEventByStartAndEnd(Date start, Date end);
+	
+	public int insertCalendarEvent(CalendarEvent calendarEvent);
+	
+	@Select(value="SELECT * FROM membership.tb_reservation t where t.start <=  #{1} and t.end >= #{2} and t.memberidfk = #{0} limit 1")
+	@ResultMap("BaseReservationResultMap")
+	public Reservation selectReservationByMemberIdAndDate(long memberId, Date start, Date end);
+	
+	@Select(value="SELECT * FROM membership.tb_reservation t where t.start >= #{0} and t.end <= #{1} ")
+	@ResultMap("BaseReservationResultMap")
+	public List<Reservation> selectReservationByDate(Date start, Date end);
+	
+	public int insertReservation(Reservation reservation);
+	
+	public int updateCalendarEvent(CalendarEvent calendarEvent);
+	
 	
 }

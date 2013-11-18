@@ -18,9 +18,6 @@ import org.springframework.web.context.request.WebRequest;
 import com.dandelion.membership.dao.model.Applicant;
 import com.dandelion.membership.service.ApplicantService;
 
-
-
-
 @Controller
 @RequestMapping(value = "Applicant")
 public class ApplicantController {

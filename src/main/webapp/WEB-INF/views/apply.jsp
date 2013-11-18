@@ -21,6 +21,7 @@
 	href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />"
 	rel="stylesheet">
 <!-- Add custom CSS here -->
+<link href="<c:url value="/resources/css/custom.css" />" rel="stylesheet">
 <style>
 body {
 	margin-top: 60px;
@@ -35,7 +36,7 @@ body {
 
 	<div class="container">
 
-		<form id="applyForm" class="form-horizontal">
+		<form id="applyForm" class="form-horizontal" >
 			<fieldset>
 				<div id="legend" class="">
 					<legend class="">
@@ -48,7 +49,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">申請人姓名</label>
 					<div class="controls">
-						<input id="name_input" placeholder="" class="input-xlarge"
+						<input id="name_input" placeholder="" class="form-control"
 							type="text" name="applicantName">
 						<p class="help-block"></p>
 					</div>
@@ -58,7 +59,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">申請人電郵</label>
 					<div class="controls">
-						<input id="email_input" placeholder="" class="input-xlarge"
+						<input id="email_input" placeholder="" class="form-control"
 							type="text" name="applicantEmail">
 						<p class="help-block"></p>
 					</div>
@@ -67,7 +68,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">申請日期</label>
 					<div class="controls">
-						<input class="input-xlarge" type="text" id="datetimepicker"
+						<input class="form-control" type="text" id="datetimepicker"
 							name="applyDate" data-date-format="yyyy-mm-dd">
 						<p class="help-block"></p>
 					</div>
@@ -76,7 +77,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">推薦人姓名</label>
 					<div class="controls">
-						<input id="refername_input" placeholder="" class="input-xlarge"
+						<input id="refername_input" placeholder="" class="form-control"
 							type="text" name="referrerName">
 						<p class="help-block"></p>
 					</div>
@@ -85,7 +86,7 @@ body {
 					<!-- Text input-->
 					<label class="control-label" for="input01">信用卡信息</label>
 					<div class="controls">
-						<input id="credit_input" placeholder="" class="input-xlarge"
+						<input id="credit_input" placeholder="" class="form-control"
 							type="text" name="creditCardNumber">
 						<p class="help-block"></p>
 					</div>
@@ -98,7 +99,7 @@ body {
 					<!-- Select Basic -->
 					<label class="control-label">申請會員類型</label>
 					<div class="controls">
-						<select class="input-xlarge" name="memberType">
+						<select class="form-control" name="memberType">
 							<option>A等會員</option>
 							<option>B等會員</option>
 							<option>C等會員</option>

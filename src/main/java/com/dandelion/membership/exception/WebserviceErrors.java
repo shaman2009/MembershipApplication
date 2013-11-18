@@ -59,4 +59,9 @@ public class WebserviceErrors {
 	
 	public static final int FORGET_PASSWORD_TOKEN_EXPIRED = 1032;
 	public static final String FORGET_PASSWORD_TOKEN_EXPIRED_MESSAGE = "token expired";
+	
+	
+	
+	public static final int CALENDAREVENT_NOT_EXIST = 2001;
+	public static final String CALENDAREVENT_NOT_EXIST_MESSAGE = "calendar event is not exist";
 }

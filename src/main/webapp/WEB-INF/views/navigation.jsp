@@ -24,6 +24,8 @@
 				<li><a href="<c:url value="/Approval/Select" />">審批會員</a></li>
 				<li><a href="<c:url value="/Applicant/Apply" />">申請會員</a></li>
 				<li><a href="<c:url value="/Reservation/Show" />">場地預約</a></li>
+				<li><a href="<c:url value="#" />">預約管理</a></li>
+				<li><a href="<c:url value="#" />">草坪管理</a></li>
 				<li><a href="#about">About</a></li>
 				<li><a href="#services">Services</a></li>
 				<li><a href="#contact">Contact</a></li>
