@@ -15,7 +15,6 @@
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
 	<!-- Add custom CSS here -->
 	<style>
 	body {

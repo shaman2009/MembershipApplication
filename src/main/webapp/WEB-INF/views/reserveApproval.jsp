@@ -36,38 +36,49 @@
   </head>
 
   <body>
-	<%@ include file="navigation.jsp" %>
+ 	 <%@ include file="navigation.jsp" %>
 	<div class="container">
 		<div id="legend" class="">
 			<legend class="">
-				<h1>會員</h1>
+				<h1>預約管理</h1>
 			</legend>
 		</div>
-		<form:form id="applyForm" class="form-horizontal" modelAttribute="applicantForm" >
+		<form:form id="applyForm" class="form-horizontal" modelAttribute="reservationForm" >
 			<div class="table-responsive">
-				<c:if test="${not empty applicantForm.applicants}">
+				<c:if test="${not empty reservationForm.reservations}">
 					<table class="table">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>姓名</th>
-								<th>入会日期</th>
-								<th>信用卡信息</th>
-								<th>會員類型</th>
+								<th>會員ID</th>
+								<th>開始時間</th>
+								<th>結束時間</th>
+								<th>天氣</th>
+								<th>事件</th>
+								<th>審批狀態</th>
 
 
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="applicant" items="${applicantForm.applicants}" varStatus="index">
+							<c:forEach var="reservation" items="${reservationForm.reservations}" varStatus="index">
 								<tr>
 									<td>${index.count}</td>
-									<td>${applicant.applicantname}</td>
-									<td><fmt:formatDate value="${applicant.modifieddate}"
-											pattern="yyyy-MM-dd" /></td>
-									<td>${applicant.creditcardnumber}</td>
-									<td>${applicant.membertype}</td>
-									<td style="display:none;" ><input name="applicants[${index.index}].id" value="${applicant.id}"/></td>
+									<td>${reservation.memberidfk}</td>
+									<td><fmt:formatDate value="${reservation.start}" pattern="yyyy-MM-dd HH:mm" /></td>
+									<td><fmt:formatDate value="${reservation.end}" pattern="yyyy-MM-dd HH:mm" /></td>
+									<td><input name="reservations[${index.index}].weather"   class="form-control" value="${reservation.weather}"/></td>
+									<td><input name="reservations[${index.index}].event"  class="form-control" value="${reservation.event}"/></td>
+									<td><select  class="form-control"
+										name="reservations[${index.index}].status">
+											<option
+												<c:if test="${reservation.status=='申請中'}">selected</c:if>
+												value="申請中">申請中</option>
+											<option
+												<c:if test="${reservation.status=='通過'}">selected</c:if>
+												value="通過">通過</option>
+									</select></td>
+									<td style="display:none;" ><input name="reservations[${index.index}].id" value="${reservation.id}"/></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -75,6 +86,13 @@
 				</c:if>
 			</div>
 
+			<div class="control-group">
+				<label class="control-label"></label>
+				<!-- Button -->
+				<div class="controls">
+					<button class="btn btn-success active">提交</button>
+				</div>
+			</div>
 		</form:form>
 		<div id="alertSuccess" class="alert alert-success" style="display: none;">提交成功  :)</div>
 		<div class="alert alert-danger" style="display: none;">の(⊙o⊙)…  出錯了</div>
@@ -86,13 +104,32 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    	<script src="<c:url value="/resources/js/jquery.js" />"></script>
+   	<script src="<c:url value="/resources/js/jquery.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js" />"></script>
 	<script src="<c:url value="/resources/js/jquery.form.js" />"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+			var options = {
+				url : "Save", // target element(s) to be updated with server response 
+				beforeSubmit : showRequest, // pre-submit callback 
+				success : showResponse,
+				type : 'post',
+				error : errorResponse
+			};
+
+			$("#applyForm").ajaxForm(options);
 		});
+		function showRequest(formData, jqForm, options) { 
+		    var queryString = $.param(formData); 
+		    return true; 
+		};
+		function errorResponse(responseText, statusText, xhr, $form)  { 
+		};
+		function showResponse(responseText, statusText, xhr, $form)  { 
+		    $("#alertSuccess").css('display','block'); 
+		};
 	</script>
   </body>
 </html>

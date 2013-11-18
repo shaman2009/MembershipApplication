@@ -16,7 +16,6 @@
 <!-- Bootstrap core CSS -->
 <link href="<c:url value="/resources/css/bootstrap.css" />"
 	rel="stylesheet">
- <link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
 <link
 	href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />"
 	rel="stylesheet">

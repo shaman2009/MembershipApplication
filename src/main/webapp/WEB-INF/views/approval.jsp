@@ -19,7 +19,6 @@
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
 	<!-- Add custom CSS here -->
 	<style>
 	body {
@@ -73,7 +72,7 @@
 									<td>${applicant.membertype}</td>
 									<td>${applicant.referrername}</td>
 									<td>${applicant.isreferrertrue}</td>
-									<td><select class="input-xlarge"
+									<td><select  class="form-control"
 										name="applicants[${index.index}].status">
 											<option
 												<c:if test="${applicant.status=='accept'}">selected</c:if>

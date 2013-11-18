@@ -38,26 +38,26 @@ body {
 			<fieldset>
 				<div id="legend" class="">
 					<legend class="">
-						<h1>會員預約</h1>
+						<h1>草坪管理</h1>
 					</legend>
 				</div>
 
 					<div class="control-group">
 					<!-- Text input-->
-					<label class="control-label" for="input01">會員ID</label>
+					<label class="control-label" for="input01">場地編號</label>
 					<div class="controls">
-						<input id="memberId_input" placeholder="" class="form-control"
-							type="text" name="memberId">
+						<input id="fieldId_input" placeholder="" class="form-control"
+							type="text" name="fieldId">
 						<p class="help-block"></p>
 					</div>
 				</div>
 				
 				
 				<div class="control-group">
-					<label class="control-label" for="reservationtime">預約時間</label>
+					<label class="control-label" for="cleaningtime">撒藥時間</label>
 					<div class="controls">
 						<div class="input-prepend">
-							<input type="text" name="reservation" id="reservationtime" class="form-control" />
+							<input type="text" name="cleaningtime" id="cleaningtime" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -81,7 +81,7 @@ body {
 		<div id="alertSuccess" class="alert alert-success"
 			style="display: none;">提交成功 :)</div>
 		<div id="alertError" class="alert alert-danger" style="display: none;">の(⊙o⊙)…
-			出錯了,請正確填寫</div>
+			出錯了,場地編號有誤,場地編號應為1-10之間</div>
 	</div>
 	<!-- /.container -->
 
@@ -96,7 +96,7 @@ body {
 	<script
 		src="<c:url value="/resources/js/daterangepicker/daterangepicker.js" />"></script>
 	<script type="text/javascript">
-		$('#reservationtime').daterangepicker({
+		$('#cleaningtime').daterangepicker({
 			timePicker : true,
 			timePickerIncrement : 30,
 			format : 'MM/DD/YYYY HH:mm'
@@ -128,17 +128,17 @@ body {
 		// pre-submit callback 
 		function showRequest(formData, jqForm, options) {
 
-			if (!$("#memberId_input").val()) {
+			if (!$("#fieldId_input").val()) {
 				$("#alertError").css('display', 'block').text(
 						"の(⊙o⊙)…  出錯了,請正確填寫【會員ID】");
 				return false;
 			}
-			if (isNaN($('#memberId_input').val())) {
+			if (isNaN($('#fieldId_input').val())) {
 				$("#alertError").css('display', 'block').text(
 						"の(⊙o⊙)…  出錯了,請正確填寫【會員ID】");
 				return false;
 			}
-			if (!$("#reservationtime").val()) {
+			if (!$("#cleaningtime").val()) {
 				$("#alertError").css('display', 'block').text(
 						"の(⊙o⊙)…  出錯了,請正確選擇【預約日期】");
 				return false;
@@ -153,7 +153,7 @@ body {
 		function errorResponse(responseText, statusText, xhr, $form) {
 			$("#alertSuccess").css('display', 'none');
 			$("#alertError").css('display', 'block').text(
-					"の(⊙o⊙)…  出錯了,請不要重複申請~~ > < ！！！");
+					"の(⊙o⊙)… 出錯了,場地編號有誤,場地編號應為1-10之間  > < ！！！");
 			;
 		}
 		// post-submit callback 

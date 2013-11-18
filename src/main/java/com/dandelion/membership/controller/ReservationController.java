@@ -2,26 +2,31 @@ package com.dandelion.membership.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dandelion.membership.dao.model.Reservation;
+import com.dandelion.membership.dao.model.ReservationForm;
 import com.dandelion.membership.exception.MembershipException;
 import com.dandelion.membership.service.ReservationService;
 
 @Controller
 @RequestMapping(value ="Reservation")
 public class ReservationController {
-	private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
-	
+	private static final Logger logger = Logger. getLogger("ReservationController");
+	private static List<Reservation> reservations = new ArrayList<Reservation>();
 	@Autowired
 	private ReservationService reservationService;
 		
@@ -49,17 +54,49 @@ public class ReservationController {
 	
 	@RequestMapping(value = "Submit", method = RequestMethod.POST)
 	public String ReservationSubmit(WebRequest request) throws ParseException, MembershipException {
+		logger.log(Level.INFO,"Coming");
 		Long memberId = Long.valueOf(request.getParameter("memberId"));
 		String reservation = request.getParameter("reservation");
 		String[] strings = reservation.split("-");
 		strings[0].trim();
 		strings[1].trim();
+		logger.log(Level.INFO,strings.toString());
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		logger.log(Level.INFO,"SimpleDateFormat");
 		Date startDate = format.parse(strings[0]);
 		Date startEnd = format.parse(strings[1]);
+		logger.log(Level.INFO, startEnd.toString());
 		boolean b = reservationService.reservationSubmit(memberId, startDate, startEnd);
-		
+		if (!b) {
+			logger.log(Level.INFO, "return error");
+			return "error";
+		}
 		return "home";
+	}
+	
+
+	@RequestMapping(value = "Select")
+	public ModelAndView selectApplicant() {
+		reservations = reservationService.selectReservation();
+		ReservationForm reservationForm = new ReservationForm();
+		reservationForm.setReservations(reservations);
+	    return new ModelAndView("reserveApproval", "reservationForm", reservationForm);
+	}
+	
+	
+	@RequestMapping(value = "Save")
+	public ModelAndView approval(@ModelAttribute("reservationForm") ReservationForm reservationForm) {
+		if(reservationForm == null) {
+			logger.info("NULL");
+			return new ModelAndView("reserveApproval");
+		}
+		List<Reservation> reservations = reservationForm.getReservations();
+		ReservationController.reservations = reservations;
+		if(null != reservations && reservations.size() > 0) {
+			reservationService.approval(reservations);
+		}
+		
+	    return new ModelAndView("reserveApproval");
 	}
 	
 	

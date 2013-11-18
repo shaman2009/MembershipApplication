@@ -37,7 +37,7 @@ public class ApprovalController {
 	
 	
 	@RequestMapping(value = "Save")
-	public ModelAndView Approval(@ModelAttribute("applicantForm") ApplicantForm applicantForm) {
+	public ModelAndView approval(@ModelAttribute("applicantForm") ApplicantForm applicantForm) {
 		if(applicantForm == null) {
 			logger.info("NULL");
 			return new ModelAndView("approval");

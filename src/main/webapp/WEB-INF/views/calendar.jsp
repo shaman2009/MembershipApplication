@@ -15,9 +15,7 @@
 
 <!-- Bootstrap core CSS -->
 	<link href="<c:url value="/resources/css/bootstrap.css" />"rel="stylesheet">
- 	<link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet">
  	<link href="<c:url value="/resources/css/calendar/calendar.css" />" rel="stylesheet">
-	<link href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />" rel="stylesheet">
 <!-- Add custom CSS here -->
 <style>
 body {
@@ -53,16 +51,11 @@ body {
 	</div>
 
 	<div class="row">
-		<div class="col-md-9">
+		<div class="span9">
 			<div id="calendar"></div>
 		</div>
-
 	</div>
 
-	<div class="clearfix"></div>
-	<br><br>
-	<div id="disqus_thread"></div>
-	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 	<div class="modal fade" id="events-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">

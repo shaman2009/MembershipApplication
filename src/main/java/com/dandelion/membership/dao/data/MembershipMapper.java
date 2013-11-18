@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.dandelion.membership.dao.model.Applicant;
 import com.dandelion.membership.dao.model.CalendarEvent;
+import com.dandelion.membership.dao.model.Field;
 import com.dandelion.membership.dao.model.Reservation;
 
 public interface MembershipMapper {
@@ -42,11 +43,11 @@ public interface MembershipMapper {
 	
 	public int insertCalendarEvent(CalendarEvent calendarEvent);
 	
-	@Select(value="SELECT * FROM membership.tb_reservation t where t.start <=  #{1} and t.end >= #{2} and t.memberidfk = #{0} limit 1")
+	@Select(value="SELECT * FROM tb_reservation t where t.start <=  #{1} and t.end >= #{2} and t.memberidfk = #{0} limit 1")
 	@ResultMap("BaseReservationResultMap")
-	public Reservation selectReservationByMemberIdAndDate(long memberId, Date start, Date end);
+	public List<Reservation> selectReservationByMemberIdAndDate(Long memberId, Date start, Date end);
 	
-	@Select(value="SELECT * FROM membership.tb_reservation t where t.start >= #{0} and t.end <= #{1} ")
+	@Select(value="SELECT * FROM tb_reservation t where t.start >= #{0} and t.end <= #{1} ")
 	@ResultMap("BaseReservationResultMap")
 	public List<Reservation> selectReservationByDate(Date start, Date end);
 	
@@ -54,5 +55,13 @@ public interface MembershipMapper {
 	
 	public int updateCalendarEvent(CalendarEvent calendarEvent);
 	
+	public int updateField(Field field);
 	
+	public int insertField(Field field);
+	
+	@Select(value="select * from tb_reservation t where t.status = '申請中';")
+	@ResultMap("BaseReservationResultMap")
+	public List<Reservation> selectReservationByStatusIsApplying();
+	
+	public int updateReservation(Reservation reservation);
 }

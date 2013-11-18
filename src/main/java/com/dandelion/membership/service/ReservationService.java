@@ -4,12 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,24 +23,28 @@ import com.dandelion.membership.exception.WebserviceErrors;
 
 @Service
 public class ReservationService {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ReservationService.class);
+	private static final Logger logger = Logger. getLogger("ReservationService");
 	@Autowired
 	private MembershipMapper membershipMapper;
 	
 	
 	@Transactional(rollbackFor = Exception.class)
 	public boolean reservationSubmit(Long memberId, Date start, Date end) throws ParseException, MembershipException {
+		logger.log(Level.INFO,"Service reservationSubmit");
 		Reservation tempReservation = new Reservation();
 		tempReservation.setMemberidfk(memberId);
 		tempReservation.setStart(start);
 		tempReservation.setEnd(end);
+		logger.log(Level.INFO,"beforesetStatus");
 		tempReservation.setStatus("申請中");
+		logger.log(Level.INFO,"aftersetStatus");
 		tempReservation.setCreateddate(new Date());
 		tempReservation.setModifieddate(new Date());
-		
-		Reservation r = membershipMapper.selectReservationByMemberIdAndDate(memberId, start, end);
-		if (r !=null ) {
+		logger.log(Level.INFO,"before Reservation r = membershipMapper.selectReservationByMemberIdAndDate(memberId, start, end);");
+		List<Reservation> r = membershipMapper.selectReservationByMemberIdAndDate(memberId, start, end);
+		logger.log(Level.INFO,"after Reservation r = membershipMapper.selectReservationByMemberIdAndDate(memberId, start, end);");
+		if (r.size() != 0 ) {
+			logger.log(Level.INFO,"(r !=null");
 			return false;
 		}
 		membershipMapper.insertReservation(tempReservation);
@@ -48,7 +52,8 @@ public class ReservationService {
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		String  dd = format.format(start);
 		Date startDay = format.parse(dd);
-		Date endDay = new Date(startDay.getTime() + Constant.DAY_TIME);
+		dd = format.format(end);
+		Date endDay = new Date(format.parse(dd).getTime() + Constant.DAY_TIME);
 		
 		List<Reservation> reservations = membershipMapper.selectReservationByDate(startDay, endDay);
 		int reservationSize = reservations.size();
@@ -60,10 +65,12 @@ public class ReservationService {
 			}
 			CalendarEvent calendarEvent = events.get(0);
 			if (reservationSize <= 2) {
+				calendarEvent.setTitle("half full");
 				calendarEvent.setCssclass("event-warning");
 				membershipMapper.updateCalendarEvent(calendarEvent);
 			}
 			if (reservationSize > 2) {
+				calendarEvent.setTitle("full");
 				calendarEvent.setCssclass("event-important");
 				calendarEvent.setUrl("###");
 				membershipMapper.updateCalendarEvent(calendarEvent);
@@ -131,5 +138,16 @@ public class ReservationService {
 		result.put("result", array);
 
 		return result.toString();
+	}
+	
+	public List<Reservation> selectReservation() {
+		List<Reservation> list = membershipMapper.selectReservationByStatusIsApplying();
+		return list;
+	}
+	
+	public void approval(List<Reservation> reservations) {
+		for (Reservation reservation : reservations) {
+			membershipMapper.updateReservation(reservation);
+		}
 	}
 }
