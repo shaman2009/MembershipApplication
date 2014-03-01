@@ -32,4 +32,9 @@ public class DianpingController {
 		return new ResponseEntity<String>("Accesstoken write success!", HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/finish", method = RequestMethod.GET)
+	public String closeTab(@RequestParam(value = "j", required = false) String j , HttpServletResponse response) throws Exception {
+		response.addCookie(new Cookie("COOKIENAME", "The cookie's value"));
+		return "closetab";
+	}
 }
