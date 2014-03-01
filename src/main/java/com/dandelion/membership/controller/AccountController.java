@@ -26,15 +26,12 @@ private static final Logger logger = LoggerFactory.getLogger(AccountController.c
 		String password = request.getParameter("password");
 		
 		
-		
 		if("admin".equals(email)&&"admin".equals(password)){
 			return "home";
 		}
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
 		String formattedDate = dateFormat.format(date);
-		
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "";
