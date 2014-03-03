@@ -37,4 +37,20 @@ public class DianpingController {
 		response.addCookie(new Cookie("COOKIENAME", "The cookie's value"));
 		return "closetab";
 	}
+	
+	@RequestMapping(value = "/business", method = RequestMethod.GET)
+	public ResponseEntity<VeneusListResponse> findbusiness(@RequestParam(value = "j", required = false) String j ,WebRequest webRequest, HttpServletResponse response) throws Exception {
+		String latitude = webRequest.getParameter("latitude");
+		String longitude = webRequest.getParameter("longitude");
+		String keyword = webRequest.getParameter("keyword");
+		VeneusListResponse res = dianpingService.findbusiness(latitude, longitude, keyword);
+		return new ResponseEntity<VeneusListResponse>(res, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/deals", method = RequestMethod.GET)
+	public ResponseEntity<VeneusListResponse> finddeals(@RequestParam(value = "j", required = false) String j ,WebRequest webRequest, HttpServletResponse response) throws Exception {
+		String latitude = webRequest.getParameter("latitude");
+		String longitude = webRequest.getParameter("longitude");
+		VeneusListResponse res = dianpingService.finddeals(latitude, longitude);
+		return new ResponseEntity<VeneusListResponse>(res, HttpStatus.OK);
+	}
 }
